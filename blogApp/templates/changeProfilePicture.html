@@ -1,0 +1,28 @@
+<!-- edit_profile.html -->
+{% extends 'main.html' %}
+{% block content %}
+
+    
+  <form method="POST" enctype="multipart/form-data" class="form h-auto my-auto mx-auto">
+        {% csrf_token %}
+        <h4>Change Profile Picture</h4>
+        <hr>
+        <input type="file" name="profilePicture">
+        <button type="submit" class="btn btn-primary">Change Profile Picture</button>
+        <hr>
+        
+     {% if form.errors %}
+    <div class="alert alert-danger  mt-2">
+      <ul>
+        {% for field in form %}
+        {% for error in field.errors %}
+        <li>{{ error }}</li>
+        {% endfor %}
+        {% endfor %}
+      </ul>
+    </div>
+{% endif %}
+      </form>
+        
+    
+{% endblock %}

@@ -1,0 +1,17 @@
+{% extends 'main.html' %} {% block content %}
+
+<div class="container p-5">
+  <div>
+    <h3>Edit Blog</h3>
+  </div>
+
+  <form method="POST">
+    {% csrf_token %} {{ form.title.label }} {{ form.title }}
+    {{form.article.label }} {{ form.article }} <br />
+    <!-- Autofill author field with logged-in user -->
+    <input type="hidden" name="author" value="{{ request.user.id }}" />
+    <button class="btn btn-primary" type="submit" name="submit">Submit</button>
+  </form>
+</div>
+
+{% endblock %}

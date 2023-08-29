@@ -1,0 +1,73 @@
+<!-- edit_profile.html -->
+{% extends 'main.html' %}
+{% block content %}
+<div class="edit-p">
+  <form method="POST" class="form row">
+    <h1>Edit Profile</h1>
+    {% csrf_token %}
+    <div class="row">
+        {{ form.first_name.label }} 
+        {{ form.first_name }} 
+        {% for error in form.first_name.errors %}
+        <div class="invalid-feedback">{{ error }}</div>
+        {% endfor %}
+        
+        {{ form.last_name.label }} 
+        {{ form.last_name }} 
+        {% for error in form.last_name.errors %}
+        <div class="invalid-feedback">{{ error }}</div>
+        {% endfor %}
+    
+        {{ form.username.label }} 
+        {{ form.username }} 
+        {% for error in form.username.errors %}
+        <div class="invalid-feedback">{{ error }}</div>
+        {% endfor %}
+    
+        {{ form.occupation.label }} 
+        {{ form.occupation }}
+        {% for error in form.occupation.errors %}
+        <div class="invalid-feedback">{{ error }}</div>
+        {% endfor %}
+
+        {{ form.email.label }} 
+        {{ form.email }}
+        {% for error in form.email.errors %}
+        <div class="invalid-feedback">{{ error }}</div>
+        {% endfor %} 
+        
+        
+      </div>
+      {% if form.errors %}
+    <div class="alert alert-danger">
+      <ul>
+        {% for field in form %}
+        {% for error in field.errors %}
+        <li>{{ error }}</li>
+        {% endfor %}
+        {% endfor %}
+      </ul>
+    </div>
+{% endif %}
+    <button type="submit" class="btn btn-primary w-100 mx-auto">Save Changes</button>
+  </form>
+  
+  <div class="form my-3 h-75 ">
+    <h1>account settings</h1>
+    <hr>
+        <h4>Change Profile Picture</h4>
+        <button class="btn bg-danger my-2 w-100">
+        <a href="{% url 'changeProfilePicture' user.username %}">Change Profile Picture</a>
+        </button>
+        <h4>Delete Account</h4>
+        <button class="btn bg-danger my-2 w-100">
+        <a href="{% url 'deleteAccount' %}">Delete Account</a>
+        </button>
+       <h4>Change Password</h4>
+        <button class="btn bg-danger w-100">
+        <a href="{% url 'changePassword'  %}">Go to Change password</a>
+        </button>
+      </div>
+        
+    </div>
+{% endblock %}

@@ -1,0 +1,32 @@
+{% extends 'main.html' %} {% block content %}
+    <form class="form h-50 mx-auto  my-auto shadow-lg" method="POST">
+      {% csrf_token %}
+       <p class="form-title">Sign in to your account</p>
+       <hr>
+        <div class="input-container">
+          <input type="text" name="username" placeholder="Enter username">
+          <span>
+          </span>
+      </div>
+      <div class="input-container">
+          <input type="password" name="password" placeholder="Enter password">
+        </div>
+        {% if errorMessage %}
+        <ul class="errorMessage" >
+            <li style="color: red; ">{{ errorMessage }}</li>
+        </ul>
+      {% endif %}
+        
+         <button type="submit"  name="submit" class="submit">
+        Sign in
+      </button>
+
+      <p class="signup-link">
+        No account?
+        <a href="{% url 'signUp' %}">Sign up</a>
+      </p>
+      
+  {% endblock content %}
+   </form>   
+   
+</div>

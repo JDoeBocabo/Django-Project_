@@ -1,0 +1,45 @@
+{% extends 'main.html' %} {% block content %}
+<div class="container row w-100">
+<div class="col-4 align-items-start bg-white h-auto shadow-lg my-2">
+    <div class="row mx-auto h-50 py-2">
+        <img src="{{ user.profilePicture.url }}"></img>
+    </div>
+
+    <div class="row mx-auto">
+       <h2 class="text-center ">{{ user.first_name }} {{ user.last_name }}</h2>
+        <p>@{{ user.username }}</p>
+        <p>Occupation:{{ user.occupation }}</p>
+        <p>Email: {{ user.email }}</p>
+    
+        {% if user.username == request.user.username %}
+        <button class="btn btn-primary"><a href="{% url 'editProfile' username=user.username %}">Edit Profile</a></button>
+        
+        {% endif %}
+
+    </div>
+</div>
+
+<div class="col home-container my-3 ">
+        <h1 class="text-center mt-2">{{ user.username }}'s blogs</h1>
+        {% for blog in user.blog_set.all %}
+            <div class="container bg-white  each-blog row  mx-auto">
+                <a href="{% url 'blogs' blog.slug %}"><h4>{{ blog.title|title }}</h4></a>
+                <p>By: <a href="{% url 'profile' username=user.username %}">{{ user.username }}</a></p>
+                  <hr>
+            <p>
+            {% with truncated_article=blog.article|truncatewords_html:30 %}
+                {{ truncated_article }}
+                {% if blog.article != truncated_article %}
+                <a href="{% url 'blogs' blog.slug %}" class="text-primary" style="text-decoration: underline;">See more</a>
+                {% endif %}
+            {% endwith %}
+            </p>
+            </div>
+        {% empty %}
+            <p>No blogs available.</p>
+        {% endfor %}
+    </div>
+</div>
+
+{% endblock %}
+

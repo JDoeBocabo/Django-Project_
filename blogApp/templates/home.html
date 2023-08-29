@@ -1,0 +1,23 @@
+{% extends 'main.html' %}
+{% block content %}
+<div class="home-container my-4">
+  <h1 class="text-center">Browse Blogs</h1>
+  <hr>
+  {% for blog in blogs %}
+  <div class="container bg-white  each-blog">
+    <a href="{% url 'blogs' blog.slug %}"><h4>{{ blog.title|title }}</h4></a>
+
+    <p><a href="{% url 'profile' username=blog.author.username %}">By: {{ blog.author }}</a></p>
+      <hr>
+    <p>
+      {% with truncated_article=blog.article|truncatewords_html:30 %}
+        {{ truncated_article }}
+        {% if blog.article != truncated_article %}
+          <a href="{% url 'blogs' blog.slug %}" class="text-primary" style="text-decoration: underline;">See more</a>
+        {% endif %}
+      {% endwith %}
+    </p>
+  </div>
+  {% endfor %}
+</div>
+{% endblock %}

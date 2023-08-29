@@ -1,0 +1,14 @@
+{% extends 'main.html' %} 
+{% block content %}
+<div class="container d-flex flex-column gap-2">
+    <h2>Blogs with "{{ query }}"</h2>
+    {% for blog in blogs %}
+        <div class="container bg-info-subtle each-blog mx-1">
+            <a href="{% url 'blogs' blog.slug %}"><h4>{{ blog.title|title }}</h4></a>
+            <p><a href="{% url 'profile' username=blog.author.username %}">By: {{ blog.author }}</a></p>
+        </div>
+    {% empty %} 
+        <p>No blogs available.</p>
+    {% endfor %}
+</div>
+{% endblock %}
